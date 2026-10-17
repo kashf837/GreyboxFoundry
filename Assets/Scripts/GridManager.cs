@@ -3,12 +3,26 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     float gridSize = 1.0f;
-    int width = 40;
-    int height = 40;
+    float plotSize = 40.0f;
     Vector3 origin = new(-20, 0, -20);
-    void Start()
-    {
 
+    void OnDrawGizmos()
+    {
+        int cellCount = Mathf.RoundToInt(plotSize / gridSize);
+        float y0 = 0.01f; // 将网格线稍微抬高一点，避免与地面重叠
+        Gizmos.color = Color.white;
+        for (int x = 0; x <= cellCount; x++)
+        {
+            Vector3 start = origin + new Vector3(x * gridSize, y0, 0);
+            Vector3 end = origin + new Vector3(x * gridSize, y0, plotSize);
+            Gizmos.DrawLine(start, end);
+        }
+        for (int y = 0; y <= cellCount; y++)
+        {
+            Vector3 start = origin + new Vector3(0, y0, y * gridSize);
+            Vector3 end = origin + new Vector3(plotSize, y0, y * gridSize);
+            Gizmos.DrawLine(start, end);
+        }
     }
 
     Vector2Int WorldToCell(Vector3 worldPos)
