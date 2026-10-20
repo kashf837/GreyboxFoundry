@@ -681,6 +681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minerPrefab: {fileID: 1422809836657302433, guid: f490e65ba8ac7324198cb4451f8b4c41, type: 3}
   beltPrefab: {fileID: 816822947729527032, guid: 43a88228ba29c7a4d858d9ec02bf1150, type: 3}
+  orePrefab: {fileID: 6809178691743631403, guid: b100d74c437eb7445a2dff72d02d1fc6, type: 3}
   grid: {fileID: 185952316}
 --- !u!4 &686078532
 Transform:

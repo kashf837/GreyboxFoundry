@@ -7,6 +7,7 @@ public class BuildManager : MonoBehaviour
 {
     [SerializeField] GameObject minerPrefab;
     [SerializeField] GameObject beltPrefab;
+    [SerializeField] GameObject orePrefab;
     Dictionary<Vector2Int, GameObject> occupied = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] GridManager grid;
     BuildingType currentType = BuildingType.Miner;
@@ -69,5 +70,14 @@ public class BuildManager : MonoBehaviour
     }
 
     public BuildingType CurrentType() { return currentType; }
+
+    public void SpawnTestOre(Vector2Int cell)
+    {
+        if (!occupied.TryGetValue(cell, out GameObject building)) return;
+        Belt belt = building.GetComponent<Belt>();
+        if (belt == null) return;
+        GameObject oreObj = Instantiate(orePrefab, Vector3.zero, Quaternion.identity);
+        belt.AddOre(oreObj.GetComponent<Ore>());
+    }
 
 }
