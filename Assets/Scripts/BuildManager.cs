@@ -68,4 +68,6 @@ public class BuildManager : MonoBehaviour
         currentDirection = (Direction)(((int)currentDirection + 1) % 4);
     }
 
+    public BuildingType CurrentType() { return currentType; }
+
 }
