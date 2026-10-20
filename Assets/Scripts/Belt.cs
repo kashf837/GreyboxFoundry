@@ -29,7 +29,8 @@ public class Belt : MonoBehaviour
         for (int i = 0; i < ores.Count; i++)
         {
             Ore ore = ores[i];
-            ore.progress = Mathf.Min(ore.progress + speed * Time.deltaTime, 1f);
+            float limit = (i == 0) ? 1f : ores[i - 1].progress - 0.5f;
+            ore.progress = Mathf.Min(ore.progress + speed * Time.deltaTime, limit);
             ore.transform.position = PointAt(ore.progress);
         }
     }
