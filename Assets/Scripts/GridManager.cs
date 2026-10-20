@@ -33,7 +33,7 @@ public class GridManager : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
-    Vector3 CellToWorld(Vector2Int cell)
+    public Vector3 CellToWorld(Vector2Int cell)
     {
         float x = cell.x * gridSize + gridSize / 2.0f;
         float z = cell.y * gridSize + gridSize / 2.0f;
