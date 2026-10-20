@@ -23,7 +23,9 @@ public class BuildManager : MonoBehaviour
         {
             return false;
         }
-        occupied.Add(cell, Instantiate(minerPrefab, grid.CellToWorld(cell), Quaternion.identity));
+        GameObject building = Instantiate(minerPrefab, grid.CellToWorld(cell), Quaternion.identity);
+        building.name = $"Miner ({cell.x},{cell.y})";
+        occupied.Add(cell, building);
         return true;
     }
 
