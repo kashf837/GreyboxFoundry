@@ -23,6 +23,10 @@ public class MousePointer : MonoBehaviour
             {
                 buildManager.TryBuild(cell);
             }
+            if (Input.GetMouseButtonDown(1))
+            {
+                buildManager.TryDemolish(cell);
+            }
         }
         else
         {

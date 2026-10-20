@@ -26,4 +26,15 @@ public class BuildManager : MonoBehaviour
         occupied.Add(cell, Instantiate(minerPrefab, grid.CellToWorld(cell), Quaternion.identity));
         return true;
     }
+
+    public bool TryDemolish(Vector2Int cell)
+    {
+        if (!IsOccupied(cell))
+        {
+            return false;
+        }
+        Destroy(occupied[cell]);
+        occupied.Remove(cell);
+        return true;
+    }
 }
