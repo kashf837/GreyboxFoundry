@@ -11,13 +11,17 @@ public class MousePointer : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) buildManager.SetType(BuildingType.Miner);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) buildManager.SetType(BuildingType.Belt);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
         {
             preview.gameObject.SetActive(true);
             Vector2Int cell = grid.WorldToCell(hit.point);
             Vector3 worldPos = grid.CellToWorld(cell);
-            preview.position = new Vector3(worldPos.x, 0.5f, worldPos.z);
+            Vector3 scale = buildManager.PreviewScale();
+            preview.localScale = scale;
+            preview.position = new Vector3(worldPos.x, scale.y / 2f, worldPos.z);
             previewRenderer.sharedMaterial = buildManager.CanBuild(cell) ? freeMat : blockedMat;
             if (Input.GetMouseButtonDown(0))
             {

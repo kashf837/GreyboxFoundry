@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BuildingType { Miner, Belt }
+
 public class BuildManager : MonoBehaviour
 {
     [SerializeField] GameObject minerPrefab;
+    [SerializeField] GameObject beltPrefab;
     Dictionary<Vector2Int, GameObject> occupied = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] GridManager grid;
+    BuildingType currentType = BuildingType.Miner;
 
     public bool IsOccupied(Vector2Int cell)
     {
@@ -23,8 +27,9 @@ public class BuildManager : MonoBehaviour
         {
             return false;
         }
-        GameObject building = Instantiate(minerPrefab, grid.CellToWorld(cell), Quaternion.identity);
-        building.name = $"Miner ({cell.x},{cell.y})";
+        GameObject prefab = currentType == BuildingType.Miner ? minerPrefab : beltPrefab;
+        GameObject building = Instantiate(prefab, grid.CellToWorld(cell), Quaternion.identity);
+        building.name = $"{currentType} ({cell.x},{cell.y})";
         occupied.Add(cell, building);
         return true;
     }
@@ -39,4 +44,14 @@ public class BuildManager : MonoBehaviour
         occupied.Remove(cell);
         return true;
     }
+
+    public void SetType(BuildingType type) { currentType = type; }
+
+    public Vector3 PreviewScale()      // 当前类型的预览尺寸
+    {
+        return currentType == BuildingType.Miner
+            ? Vector3.one                          // (1,1,1)
+            : new Vector3(1f, 0.1f, 1f);           // 扁的
+    }
+
 }
