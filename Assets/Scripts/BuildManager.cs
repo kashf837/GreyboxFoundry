@@ -10,6 +10,7 @@ public class BuildManager : MonoBehaviour
     Dictionary<Vector2Int, GameObject> occupied = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] GridManager grid;
     BuildingType currentType = BuildingType.Miner;
+    Direction currentDirection = Direction.North;
 
     public bool IsOccupied(Vector2Int cell)
     {
@@ -30,6 +31,12 @@ public class BuildManager : MonoBehaviour
         GameObject prefab = currentType == BuildingType.Miner ? minerPrefab : beltPrefab;
         GameObject building = Instantiate(prefab, grid.CellToWorld(cell), Quaternion.identity);
         building.name = $"{currentType} ({cell.x},{cell.y})";
+        if (currentType == BuildingType.Belt)
+        {
+            Belt belt = building.GetComponent<Belt>();
+            belt.direction = currentDirection;
+            building.transform.rotation = Quaternion.Euler(0, (int)currentDirection * 90f, 0);
+        }
         occupied.Add(cell, building);
         return true;
     }
@@ -52,6 +59,13 @@ public class BuildManager : MonoBehaviour
         return currentType == BuildingType.Miner
             ? Vector3.one                          // (1,1,1)
             : new Vector3(1f, 0.1f, 1f);           // 扁的
+    }
+
+    public Direction CurrentDirection() { return currentDirection; }
+
+    public void RotateDirection()
+    {
+        currentDirection = (Direction)(((int)currentDirection + 1) % 4);
     }
 
 }
