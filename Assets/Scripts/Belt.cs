@@ -18,6 +18,7 @@ public class Belt : MonoBehaviour
     public bool AddOre(Ore ore)
     {
         if (!CanAccept()) return false;
+        ore.transform.SetParent(transform);
         ore.progress = 0f;
         ore.transform.position = PointAt(0f);
         ores.Add(ore);
