@@ -3,10 +3,10 @@ using UnityEngine;
 public class Miner : MonoBehaviour
 {
     public Direction direction = Direction.North;
+    public BuildManager buildManager;
+
     float timer = 0.0f;
     [SerializeField] GameObject orePrefab;
-    [SerializeField] Transform outputPoint;
-    int oreCount = 0;
 
     void Update()
     {
@@ -14,17 +14,21 @@ public class Miner : MonoBehaviour
         if (timer > 2.0f)
         {
             timer = 0.0f;
-            if (oreCount < 3)
-            {
-                Vector3 pos = outputPoint.position + Vector3.up * 0.35f * oreCount;
-                GameObject ore = Instantiate(orePrefab, pos, Quaternion.identity, transform);
-                oreCount++;
-                Debug.Log($"[{name}] 出矿 t={Time.time:F2} 位置={ore.transform.position}");
-            }
-            else
-            {
-                Debug.Log($"[{name}] 输出堵塞 t={Time.time:F2}");
-            }
+            Belt belt = DownstreamBelt();
+            if (belt == null || !belt.CanAccept()) return;
+
+            GameObject oreObj = Instantiate(orePrefab, Vector3.zero, Quaternion.identity);
+            belt.AddOre(oreObj.GetComponent<Ore>());
         }
+    }
+    
+    Belt DownstreamBelt()
+    {
+        GameObject front = buildManager.BuildingInFront(transform.position, direction);
+        if (front == null) return null;
+        Belt belt = front.GetComponent<Belt>();
+        if (belt == null) return null;
+        if (belt.direction != direction) return null;
+        return belt;
     }
 }

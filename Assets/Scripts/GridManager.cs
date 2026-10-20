@@ -39,4 +39,6 @@ public class GridManager : MonoBehaviour
         float z = cell.y * gridSize + gridSize / 2.0f;
         return new Vector3(x, 0, z) + origin;
     }
+
+    public float CellSize() { return gridSize; }
 }

@@ -7,7 +7,6 @@ public class BuildManager : MonoBehaviour
 {
     [SerializeField] GameObject minerPrefab;
     [SerializeField] GameObject beltPrefab;
-    [SerializeField] GameObject orePrefab;
     Dictionary<Vector2Int, GameObject> occupied = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] GridManager grid;
     BuildingType currentType = BuildingType.Miner;
@@ -32,9 +31,18 @@ public class BuildManager : MonoBehaviour
 
         building.name = $"{currentType} ({cell.x},{cell.y})";
 
-        if (currentType == BuildingType.Belt) building.GetComponent<Belt>().direction = currentDirection;
-        else building.GetComponent<Miner>().direction = currentDirection;
-        
+        if (currentType == BuildingType.Belt)
+        {
+            Belt belt = building.GetComponent<Belt>();
+            belt.direction = currentDirection;
+        }
+        else
+        {
+            Miner miner = building.GetComponent<Miner>();
+            miner.direction = currentDirection;
+            miner.buildManager = this;
+        }
+
         building.transform.rotation = Quaternion.Euler(0, (int)currentDirection * 90f, 0);
 
         occupied.Add(cell, building);
@@ -70,13 +78,14 @@ public class BuildManager : MonoBehaviour
 
     public BuildingType CurrentType() { return currentType; }
 
-    public void SpawnTestOre(Vector2Int cell)
+    public GameObject GetBuilding(Vector2Int cell)
     {
-        if (!occupied.TryGetValue(cell, out GameObject building)) return;
-        Belt belt = building.GetComponent<Belt>();
-        if (belt == null) return;
-        GameObject oreObj = Instantiate(orePrefab, Vector3.zero, Quaternion.identity);
-        belt.AddOre(oreObj.GetComponent<Ore>());
+        occupied.TryGetValue(cell, out GameObject building);
+        return building;
     }
-
+    public GameObject BuildingInFront(Vector3 from, Direction dir)
+    {
+        Vector3 ahead = from + Quaternion.Euler(0, (int)dir * 90f, 0) * Vector3.forward * grid.CellSize();
+        return GetBuilding(grid.WorldToCell(ahead));
+    }
 }

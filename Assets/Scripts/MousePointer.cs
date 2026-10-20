@@ -41,9 +41,6 @@ public class MousePointer : MonoBehaviour
             {
                 buildManager.TryDemolish(cell);
             }
-
-            if (Input.GetKeyDown(KeyCode.T)) buildManager.SpawnTestOre(cell);
-
         }
         else
         {

@@ -9,11 +9,19 @@ public class Belt : MonoBehaviour
     [SerializeField] float speed = 1f; 
     List<Ore> ores = new List<Ore>();
 
-    public void AddOre(Ore ore)
+    public bool CanAccept()
     {
+        if (ores.Count == 0) return true;
+        return ores[ores.Count - 1].progress >= 0.5f;
+    }
+
+    public bool AddOre(Ore ore)
+    {
+        if (!CanAccept()) return false;
         ore.progress = 0f;
         ore.transform.position = PointAt(0f);
         ores.Add(ore);
+        return true;
     }
 
     public Vector3 PointAt(float t)
