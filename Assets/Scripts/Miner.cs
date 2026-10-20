@@ -13,10 +13,17 @@ public class Miner : MonoBehaviour
         if (timer > 2.0f)
         {
             timer = 0.0f;
-            Vector3 pos = outputPoint.position + Vector3.up * 0.35f * oreCount;
-            GameObject ore = Instantiate(orePrefab, pos, Quaternion.identity, transform);
-            oreCount++;
-            Debug.Log($"[{name}] 出矿 t={Time.time:F2} 位置={ore.transform.position}");
+            if (oreCount < 3)
+            {
+                Vector3 pos = outputPoint.position + Vector3.up * 0.35f * oreCount;
+                GameObject ore = Instantiate(orePrefab, pos, Quaternion.identity, transform);
+                oreCount++;
+                Debug.Log($"[{name}] 出矿 t={Time.time:F2} 位置={ore.transform.position}");
+            }
+            else
+            {
+                Debug.Log($"[{name}] 输出堵塞 t={Time.time:F2}");
+            }
         }
     }
 }
