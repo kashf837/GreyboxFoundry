@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Miner : MonoBehaviour
 {
+    public Direction direction = Direction.North;
     float timer = 0.0f;
     [SerializeField] GameObject orePrefab;
     [SerializeField] Transform outputPoint;

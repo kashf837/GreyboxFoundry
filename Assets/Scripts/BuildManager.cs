@@ -25,19 +25,18 @@ public class BuildManager : MonoBehaviour
 
     public bool TryBuild(Vector2Int cell)
     {
-        if (IsOccupied(cell))
-        {
-            return false;
-        }
+        if (IsOccupied(cell)) return false;
+
         GameObject prefab = currentType == BuildingType.Miner ? minerPrefab : beltPrefab;
         GameObject building = Instantiate(prefab, grid.CellToWorld(cell), Quaternion.identity);
+
         building.name = $"{currentType} ({cell.x},{cell.y})";
-        if (currentType == BuildingType.Belt)
-        {
-            Belt belt = building.GetComponent<Belt>();
-            belt.direction = currentDirection;
-            building.transform.rotation = Quaternion.Euler(0, (int)currentDirection * 90f, 0);
-        }
+
+        if (currentType == BuildingType.Belt) building.GetComponent<Belt>().direction = currentDirection;
+        else building.GetComponent<Miner>().direction = currentDirection;
+        
+        building.transform.rotation = Quaternion.Euler(0, (int)currentDirection * 90f, 0);
+
         occupied.Add(cell, building);
         return true;
     }
