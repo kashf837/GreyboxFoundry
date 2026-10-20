@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    Vector2Int WorldToCell(Vector3 worldPos)
+    public Vector2Int WorldToCell(Vector3 worldPos)
     {
         Vector3 localPos = worldPos - origin;
         int x = Mathf.FloorToInt(localPos.x / gridSize);

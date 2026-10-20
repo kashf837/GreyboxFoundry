@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MousePointer : MonoBehaviour
 {
+    [SerializeField] GridManager grid;
 
     void Update()
     {
@@ -11,6 +12,7 @@ public class MousePointer : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
                 Debug.Log("Hit point: " + hit.point);
+                Debug.Log("Cell: " + grid.WorldToCell(hit.point));
             }
         }
     }
