@@ -12,6 +12,11 @@ public class BuildManager : MonoBehaviour
         return occupied.ContainsKey(cell);
     }
 
+    public bool CanBuild(Vector2Int cell)
+    {
+        return !IsOccupied(cell);
+    }
+
     public bool TryBuild(Vector2Int cell)
     {
         if (IsOccupied(cell))
