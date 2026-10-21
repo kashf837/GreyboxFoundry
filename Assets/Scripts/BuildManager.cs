@@ -94,10 +94,7 @@ public class BuildManager : MonoBehaviour
     {
         GameObject front = BuildingInFront(from, dir);
         if (front == null) return null;
-        Belt belt = front.GetComponent<Belt>();
-        if (belt == null) return null;
-        if (belt.direction != dir) return null;
-        return belt;
+        return front.GetComponent<Belt>();
     }
 
 }

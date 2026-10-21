@@ -10,12 +10,36 @@ public class Belt : MonoBehaviour
     List<Ore> ores = new List<Ore>();
     public BuildManager buildManager;
     const float Spacing = 0.5f;
+    const float Lift = 0.25f; 
 
-    public bool CanAccept()
+    public static Direction Opposite(Direction d)
     {
+        return (Direction)(((int)d + 2) % 4);
+    }
+
+    public Vector3 EdgePoint(Direction side)
+    {
+        Vector3 dir = Quaternion.Euler(0, (int)side * 90f, 0) * Vector3.forward;
+        return transform.position + dir * 0.5f + Vector3.up * Lift;
+    }
+
+    public Vector3 PointAt(float t, Direction entrySide)
+    {
+        Vector3 center = transform.position + Vector3.up * Lift;
+        Vector3 entry = EdgePoint(entrySide);
+        Vector3 exit  = EdgePoint(direction);
+
+        float u = 1f - t;
+        return u * u * entry + 2f * u * t * center + t * t * exit;
+    }
+
+    public bool CanAccept(Direction travelDirection)
+    {
+        if (Opposite(travelDirection) == direction) return false;
         if (ores.Count == 0) return true;
         return ores[ores.Count - 1].progress >= Spacing;
     }
+
 
     public float TailProgress()
     {
@@ -23,22 +47,15 @@ public class Belt : MonoBehaviour
         return ores[ores.Count - 1].progress;
     }
 
-    public bool AddOre(Ore ore)
+    public bool AddOre(Ore ore, Direction travelDirection)
     {
-        if (!CanAccept()) return false;
+        if (!CanAccept(travelDirection)) return false;
         ore.transform.SetParent(transform);
+        ore.entrySide = Opposite(travelDirection);          // 方向 → 边，只转这一次
         ore.progress = 0f;
-        ore.transform.position = PointAt(0f);
+        ore.transform.position = EdgePoint(ore.entrySide);
         ores.Add(ore);
         return true;
-    }
-
-    public Vector3 PointAt(float t)
-    {
-        Vector3 lift = Vector3.up * 0.25f;      // 带面 0.1 + 矿石半高 0.15
-        Vector3 start = transform.position - transform.forward * 0.5f + lift;
-        Vector3 end   = transform.position + transform.forward * 0.5f + lift;
-        return Vector3.Lerp(start, end, t);
     }
 
     void Update()
@@ -51,7 +68,7 @@ public class Belt : MonoBehaviour
             Ore ore = ores[i];
             float limit = (i == 0) ? headLimit : ores[i - 1].progress - Spacing;
             ore.progress = Mathf.Min(ore.progress + speed * Time.deltaTime, limit);
-            ore.transform.position = PointAt(ore.progress);
+            ore.transform.position = PointAt(ore.progress, ore.entrySide);
         }
 
         Handoff(next);
@@ -62,7 +79,7 @@ public class Belt : MonoBehaviour
         if (ores.Count == 0) return;
         if (ores[0].progress < 1f) return;
         if (next == null) return;
-        if (!next.AddOre(ores[0])) return;
+        if (!next.AddOre(ores[0], direction)) return;      // 递方向，不递坐标
         ores.RemoveAt(0);
     }
 }

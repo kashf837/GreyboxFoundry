@@ -15,10 +15,10 @@ public class Miner : MonoBehaviour
         {
             timer = 0.0f;
             Belt belt = buildManager.DownstreamBelt(transform.position, direction);
-            if (belt == null || !belt.CanAccept()) return;
+            if (belt == null || !belt.CanAccept(direction)) return;
 
             GameObject oreObj = Instantiate(orePrefab, Vector3.zero, Quaternion.identity);
-            belt.AddOre(oreObj.GetComponent<Ore>());
+            belt.AddOre(oreObj.GetComponent<Ore>(), direction);
         }
     }
     
