@@ -679,10 +679,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a935aebc4b60814ea11e20c59465503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minerPrefab: {fileID: 1422809836657302433, guid: f490e65ba8ac7324198cb4451f8b4c41, type: 3}
-  beltPrefab: {fileID: 816822947729527032, guid: 43a88228ba29c7a4d858d9ec02bf1150, type: 3}
-  chestPrefab: {fileID: 7052537039936288990, guid: 5f546aca4d097c642a402b4d14312ced, type: 3}
-  furnacePrefab: {fileID: 7069020569117460425, guid: 20c87bf8f8940324399f7d16edac0437, type: 3}
+  machines:
+  - {fileID: 11400000, guid: 93397726802d113489bfb6c19a5318cc, type: 2}
+  - {fileID: 11400000, guid: f74255965747f2847a9634f504821d6f, type: 2}
+  - {fileID: 11400000, guid: 074965b148dc10c478022028584448ad, type: 2}
+  - {fileID: 11400000, guid: db0e73cc25144614d8ac110a0009aac4, type: 2}
   grid: {fileID: 185952316}
 --- !u!4 &686078532
 Transform:

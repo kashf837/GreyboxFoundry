@@ -5,10 +5,7 @@ public enum BuildingType { Miner, Belt, Chest, Furnace }
 
 public class BuildManager : MonoBehaviour
 {
-    [SerializeField] GameObject minerPrefab;
-    [SerializeField] GameObject beltPrefab;
-    [SerializeField] GameObject chestPrefab;
-    [SerializeField] GameObject furnacePrefab;
+    [SerializeField] List<MachineData> machines;
     Dictionary<Vector2Int, GameObject> occupied = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] GridManager grid;
     BuildingType currentType = BuildingType.Miner;
@@ -28,19 +25,13 @@ public class BuildManager : MonoBehaviour
     {
         if (IsOccupied(cell)) return false;
 
-        GameObject prefab = null;
-        switch (currentType)
-        {
-            case BuildingType.Miner: prefab = minerPrefab; break;
-            case BuildingType.Belt:  prefab = beltPrefab;  break;
-            case BuildingType.Chest: prefab = chestPrefab; break;
-            case BuildingType.Furnace: prefab = furnacePrefab; break;
-        }
-        GameObject building = Instantiate(prefab, grid.CellToWorld(cell), Quaternion.identity);
+        MachineData data = machines[(int)currentType];
+        GameObject building = Instantiate(data.prefab, grid.CellToWorld(cell), Quaternion.identity);
 
         building.name = $"{currentType} ({cell.x},{cell.y})";
 
         Building b = building.GetComponent<Building>();
+        b.data = data;
         b.direction = currentDirection;
         b.buildManager = this;
 
@@ -65,13 +56,7 @@ public class BuildManager : MonoBehaviour
 
     public Vector3 PreviewScale()      // 当前类型的预览尺寸
     {
-        switch (currentType)
-        {
-            case BuildingType.Miner: return Vector3.one;
-            case BuildingType.Belt:  return new Vector3(1f, 0.1f, 1f);
-            case BuildingType.Furnace: return new Vector3(0.9f, 0.7f, 0.9f);
-            default:                 return new Vector3(0.9f, 0.6f, 0.9f);
-        }
+        return machines[(int)currentType].previewScale;
     }
 
     public Direction CurrentDirection() { return currentDirection; }

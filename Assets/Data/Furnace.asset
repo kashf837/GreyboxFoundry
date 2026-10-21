@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Furnace
   m_EditorClassIdentifier: 
   displayName: "\u7194\u7089"
+  prefab: {fileID: 7069020569117460425, guid: 20c87bf8f8940324399f7d16edac0437, type: 3}
+  previewScale: {x: 0.9, y: 0.7, z: 0.9}
   inputType: 0
   outputType: 1
   craftTime: 2

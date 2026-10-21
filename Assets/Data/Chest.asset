@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8aa0f79dab2cf4ca43c4788949fb33, type: 3}
+  m_Name: Chest
+  m_EditorClassIdentifier: 
+  displayName: "\u7BB1\u5B50"
+  prefab: {fileID: 7052537039936288990, guid: 5f546aca4d097c642a402b4d14312ced, type: 3}
+  previewScale: {x: 0.9, y: 0.6, z: 0.9}
+  inputType: 0
+  outputType: 0
+  craftTime: 2
