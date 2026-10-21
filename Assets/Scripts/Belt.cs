@@ -67,7 +67,10 @@ public class Belt : MonoBehaviour
         {
             Ore ore = ores[i];
             float limit = (i == 0) ? headLimit : ores[i - 1].progress - Spacing;
-            ore.progress = Mathf.Min(ore.progress + speed * Time.deltaTime, limit);
+            float want = ore.progress + speed * Time.deltaTime;
+
+            ore.SetBlocked(want > limit);
+            ore.progress = Mathf.Min(want, limit);
             ore.transform.position = PointAt(ore.progress, ore.entrySide);
         }
 

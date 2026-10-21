@@ -122,3 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progress: 0
+  entrySide: 0
+  blocked: 0
+  rend: {fileID: 3996432145714788011}
+  movingMat: {fileID: 2100000, guid: 0a9024ea7fd970d46ad47ac1d55ee685, type: 2}
+  blockedMat: {fileID: 2100000, guid: b1b1a52a2b2061d4b81f7314c0f34d4e, type: 2}
