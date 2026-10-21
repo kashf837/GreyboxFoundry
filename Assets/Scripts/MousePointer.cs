@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MousePointer : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class MousePointer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) buildManager.SetType(BuildingType.Chest);
         if (Input.GetKeyDown(KeyCode.Alpha4)) buildManager.SetType(BuildingType.Furnace);
         if (Input.GetKeyDown(KeyCode.R)) buildManager.RotateDirection();
+
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            preview.gameObject.SetActive(false);
+            previewArrow.gameObject.SetActive(false);
+            return;
+        }
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
