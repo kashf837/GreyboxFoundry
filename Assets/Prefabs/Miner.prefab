@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
+  buildManager: {fileID: 0}
   orePrefab: {fileID: 6809178691743631403, guid: b100d74c437eb7445a2dff72d02d1fc6, type: 3}
-  outputPoint: {fileID: 3295588590741731301}
 --- !u!1 &1880543357310074880
 GameObject:
   m_ObjectHideFlags: 0

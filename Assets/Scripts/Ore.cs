@@ -1,7 +1,10 @@
 using UnityEngine;
 
+public enum ItemType { Ore, Gear }
+
 public class Ore : MonoBehaviour
 {
+    public ItemType itemType = ItemType.Ore;
     public float progress = 0f;
     public Direction entrySide = Direction.North;
     public bool blocked = false;
