@@ -92,6 +92,13 @@ public class Belt : MonoBehaviour
         if (front == null) return;
 
         Chest chest = front.GetComponent<Chest>();
-        if (chest != null && chest.AddOre(ores[0], direction)) ores.RemoveAt(0);
+        if (chest != null && chest.AddOre(ores[0], direction))
+        {
+            ores.RemoveAt(0);
+            return;
+        }
+
+        Furnace furnace = front.GetComponent<Furnace>();
+        if (furnace != null && furnace.AddOre(ores[0], direction)) ores.RemoveAt(0);
     }
 }

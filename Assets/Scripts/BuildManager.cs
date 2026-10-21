@@ -52,6 +52,12 @@ public class BuildManager : MonoBehaviour
             miner.direction = currentDirection;
             miner.buildManager = this;
         }
+        else if (currentType == BuildingType.Furnace)
+        {
+            Furnace furnace = building.GetComponent<Furnace>();
+            furnace.direction = currentDirection;
+            furnace.buildManager = this;
+        }
 
         building.transform.rotation = Quaternion.Euler(0, (int)currentDirection * 90f, 0);
 

@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: db0e73cc25144614d8ac110a0009aac4, type: 2}
+  direction: 0
+  buildManager: {fileID: 0}
+  productPrefab: {fileID: 6809178691743631403, guid: 2e47da0daef02c44598018e089d1663a, type: 3}
 --- !u!1 &9088651725183546069
 GameObject:
   m_ObjectHideFlags: 0
