@@ -14,7 +14,7 @@ public class Miner : MonoBehaviour
         if (timer > 2.0f)
         {
             timer = 0.0f;
-            Belt belt = DownstreamBelt();
+            Belt belt = buildManager.DownstreamBelt(transform.position, direction);
             if (belt == null || !belt.CanAccept()) return;
 
             GameObject oreObj = Instantiate(orePrefab, Vector3.zero, Quaternion.identity);
@@ -22,13 +22,4 @@ public class Miner : MonoBehaviour
         }
     }
     
-    Belt DownstreamBelt()
-    {
-        GameObject front = buildManager.BuildingInFront(transform.position, direction);
-        if (front == null) return null;
-        Belt belt = front.GetComponent<Belt>();
-        if (belt == null) return null;
-        if (belt.direction != direction) return null;
-        return belt;
-    }
 }

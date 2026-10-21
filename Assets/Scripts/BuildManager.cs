@@ -35,6 +35,7 @@ public class BuildManager : MonoBehaviour
         {
             Belt belt = building.GetComponent<Belt>();
             belt.direction = currentDirection;
+            belt.buildManager = this;
         }
         else
         {
@@ -88,4 +89,15 @@ public class BuildManager : MonoBehaviour
         Vector3 ahead = from + Quaternion.Euler(0, (int)dir * 90f, 0) * Vector3.forward * grid.CellSize();
         return GetBuilding(grid.WorldToCell(ahead));
     }
+
+    public Belt DownstreamBelt(Vector3 from, Direction dir)
+    {
+        GameObject front = BuildingInFront(from, dir);
+        if (front == null) return null;
+        Belt belt = front.GetComponent<Belt>();
+        if (belt == null) return null;
+        if (belt.direction != dir) return null;
+        return belt;
+    }
+
 }
