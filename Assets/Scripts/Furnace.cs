@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Furnace : MonoBehaviour
+public class Furnace : MonoBehaviour, IReceiver
 {
     public MachineData data;
     public Direction direction = Direction.North;

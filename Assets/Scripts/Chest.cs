@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Chest : MonoBehaviour
+public class Chest : MonoBehaviour, IReceiver
 {
     [SerializeField] int capacity = 50;
     int count = 0;

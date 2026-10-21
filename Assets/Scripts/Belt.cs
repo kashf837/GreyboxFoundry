@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Direction { North, East, South, West }
 
-public class Belt : MonoBehaviour
+public class Belt : MonoBehaviour, IReceiver
 {
     public Direction direction = Direction.North;
     [SerializeField] float speed = 1f; 
@@ -82,23 +82,20 @@ public class Belt : MonoBehaviour
         if (ores.Count == 0) return;
         if (ores[0].progress < 1f) return;
 
+        IReceiver receiver = null;
+
         if (next != null)
         {
-            if (next.AddOre(ores[0], direction)) ores.RemoveAt(0);
-            return;
+            receiver = next;
         }
-
-        GameObject front = buildManager.BuildingInFront(transform.position, direction);
-        if (front == null) return;
-
-        Chest chest = front.GetComponent<Chest>();
-        if (chest != null && chest.AddOre(ores[0], direction))
+        else
         {
-            ores.RemoveAt(0);
-            return;
+            GameObject front = buildManager.BuildingInFront(transform.position, direction);
+            if (front == null) return;
+            receiver = front.GetComponent<IReceiver>();
         }
 
-        Furnace furnace = front.GetComponent<Furnace>();
-        if (furnace != null && furnace.AddOre(ores[0], direction)) ores.RemoveAt(0);
+        if (receiver == null) return;
+        if (receiver.AddOre(ores[0], direction)) ores.RemoveAt(0);
     }
 }
