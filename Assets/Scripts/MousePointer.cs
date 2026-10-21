@@ -14,6 +14,7 @@ public class MousePointer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) buildManager.SetType(BuildingType.Miner);
         if (Input.GetKeyDown(KeyCode.Alpha2)) buildManager.SetType(BuildingType.Belt);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) buildManager.SetType(BuildingType.Chest);
         if (Input.GetKeyDown(KeyCode.R)) buildManager.RotateDirection();
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -29,7 +30,7 @@ public class MousePointer : MonoBehaviour
             preview.rotation = Quaternion.Euler(0, (int)buildManager.CurrentDirection() * 90f, 0);
             previewRenderer.sharedMaterial = buildManager.CanBuild(cell) ? freeMat : blockedMat;
 
-            previewArrow.gameObject.SetActive(true);
+            previewArrow.gameObject.SetActive(buildManager.CurrentType() != BuildingType.Chest);
             previewArrow.position = new Vector3(worldPos.x, scale.y, worldPos.z);
             previewArrow.rotation = preview.rotation;
 

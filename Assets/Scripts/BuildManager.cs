@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BuildingType { Miner, Belt }
+public enum BuildingType { Miner, Belt, Chest }
 
 public class BuildManager : MonoBehaviour
 {
     [SerializeField] GameObject minerPrefab;
     [SerializeField] GameObject beltPrefab;
+    [SerializeField] GameObject chestPrefab;
     Dictionary<Vector2Int, GameObject> occupied = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] GridManager grid;
     BuildingType currentType = BuildingType.Miner;
@@ -26,7 +27,13 @@ public class BuildManager : MonoBehaviour
     {
         if (IsOccupied(cell)) return false;
 
-        GameObject prefab = currentType == BuildingType.Miner ? minerPrefab : beltPrefab;
+        GameObject prefab = null;
+        switch (currentType)
+        {
+            case BuildingType.Miner: prefab = minerPrefab; break;
+            case BuildingType.Belt:  prefab = beltPrefab;  break;
+            case BuildingType.Chest: prefab = chestPrefab; break;
+        }
         GameObject building = Instantiate(prefab, grid.CellToWorld(cell), Quaternion.identity);
 
         building.name = $"{currentType} ({cell.x},{cell.y})";
@@ -37,7 +44,7 @@ public class BuildManager : MonoBehaviour
             belt.direction = currentDirection;
             belt.buildManager = this;
         }
-        else
+        else if (currentType == BuildingType.Miner)
         {
             Miner miner = building.GetComponent<Miner>();
             miner.direction = currentDirection;
@@ -65,9 +72,12 @@ public class BuildManager : MonoBehaviour
 
     public Vector3 PreviewScale()      // 当前类型的预览尺寸
     {
-        return currentType == BuildingType.Miner
-            ? Vector3.one                          // (1,1,1)
-            : new Vector3(1f, 0.1f, 1f);           // 扁的
+        switch (currentType)
+        {
+            case BuildingType.Miner: return Vector3.one;
+            case BuildingType.Belt:  return new Vector3(1f, 0.1f, 1f);
+            default:                 return new Vector3(0.9f, 0.6f, 0.9f);
+        }
     }
 
     public Direction CurrentDirection() { return currentDirection; }
