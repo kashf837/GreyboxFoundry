@@ -9,4 +9,7 @@ public class MachineData : ScriptableObject
     public ItemType inputType = ItemType.Ore;
     public ItemType outputType = ItemType.Ore;
     public float craftTime = 2f;
+    public float speed = 1f;
+    public int capacity = 50;
+    public GameObject outputPrefab;
 }

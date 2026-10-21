@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class Chest : Building, IReceiver
 {
-    [SerializeField] int capacity = 50;
     int count = 0;
 
     public bool CanAccept(Direction travelDirection)
     {
-        return count < capacity;
+        return count < data.capacity;
     }
 
     public bool AddOre(Ore ore, Direction travelDirection)
@@ -15,7 +14,7 @@ public class Chest : Building, IReceiver
         if (!CanAccept(travelDirection)) return false;
         count++;
         Destroy(ore.gameObject);
-        Debug.Log($"[{name}] {count}/{capacity}");
+        Debug.Log($"[{name}] {count}/{data.capacity}");
         return true;
     }
 }

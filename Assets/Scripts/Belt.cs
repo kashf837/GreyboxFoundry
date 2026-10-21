@@ -5,7 +5,6 @@ public enum Direction { North, East, South, West }
 
 public class Belt : Building, IReceiver
 {
-    [SerializeField] float speed = 1f; 
     List<Ore> ores = new List<Ore>();
     const float Spacing = 0.5f;
     const float Lift = 0.25f; 
@@ -67,7 +66,7 @@ public class Belt : Building, IReceiver
             float limit = (i == 0) ? headLimit : ores[i - 1].progress - Spacing;
             float before = ore.progress;
 
-            ore.progress = Mathf.Min(ore.progress + speed * Time.deltaTime, limit);
+            ore.progress = Mathf.Min(ore.progress + data.speed * Time.deltaTime, limit);
             ore.SetBlocked(ore.progress <= before);
             ore.transform.position = PointAt(ore.progress, ore.entrySide);
         }

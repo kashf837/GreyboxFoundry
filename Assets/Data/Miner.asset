@@ -18,3 +18,6 @@ MonoBehaviour:
   inputType: 0
   outputType: 0
   craftTime: 2
+  speed: 1
+  capacity: 50
+  outputPrefab: {fileID: 6809178691743631403, guid: b100d74c437eb7445a2dff72d02d1fc6, type: 3}

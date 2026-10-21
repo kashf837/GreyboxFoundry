@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Furnace : Building, IReceiver
 {
-    [SerializeField] GameObject productPrefab;
-
     bool busy = false;
     float timer = 0f;
     bool wasBlocked = false;
@@ -41,7 +39,7 @@ public class Furnace : Building, IReceiver
         if (timer <= data.craftTime) return;
         if (blocked) return;
 
-        GameObject product = Instantiate(productPrefab, Vector3.zero, Quaternion.identity);
+        GameObject product = Instantiate(data.outputPrefab, Vector3.zero, Quaternion.identity);
         next.AddOre(product.GetComponent<Ore>(), direction);
 
         busy = false;
