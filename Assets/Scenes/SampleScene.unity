@@ -682,6 +682,7 @@ MonoBehaviour:
   minerPrefab: {fileID: 1422809836657302433, guid: f490e65ba8ac7324198cb4451f8b4c41, type: 3}
   beltPrefab: {fileID: 816822947729527032, guid: 43a88228ba29c7a4d858d9ec02bf1150, type: 3}
   chestPrefab: {fileID: 7052537039936288990, guid: 5f546aca4d097c642a402b4d14312ced, type: 3}
+  furnacePrefab: {fileID: 7069020569117460425, guid: 20c87bf8f8940324399f7d16edac0437, type: 3}
   grid: {fileID: 185952316}
 --- !u!4 &686078532
 Transform:

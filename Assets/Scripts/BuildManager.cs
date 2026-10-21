@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BuildingType { Miner, Belt, Chest }
+public enum BuildingType { Miner, Belt, Chest, Furnace }
 
 public class BuildManager : MonoBehaviour
 {
     [SerializeField] GameObject minerPrefab;
     [SerializeField] GameObject beltPrefab;
     [SerializeField] GameObject chestPrefab;
+    [SerializeField] GameObject furnacePrefab;
     Dictionary<Vector2Int, GameObject> occupied = new Dictionary<Vector2Int, GameObject>();
     [SerializeField] GridManager grid;
     BuildingType currentType = BuildingType.Miner;
@@ -33,6 +34,7 @@ public class BuildManager : MonoBehaviour
             case BuildingType.Miner: prefab = minerPrefab; break;
             case BuildingType.Belt:  prefab = beltPrefab;  break;
             case BuildingType.Chest: prefab = chestPrefab; break;
+            case BuildingType.Furnace: prefab = furnacePrefab; break;
         }
         GameObject building = Instantiate(prefab, grid.CellToWorld(cell), Quaternion.identity);
 
@@ -76,6 +78,7 @@ public class BuildManager : MonoBehaviour
         {
             case BuildingType.Miner: return Vector3.one;
             case BuildingType.Belt:  return new Vector3(1f, 0.1f, 1f);
+            case BuildingType.Furnace: return new Vector3(0.9f, 0.7f, 0.9f);
             default:                 return new Vector3(0.9f, 0.6f, 0.9f);
         }
     }
