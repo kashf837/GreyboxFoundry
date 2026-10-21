@@ -10,6 +10,7 @@ public class Furnace : MonoBehaviour
 
     bool busy = false;
     float timer = 0f;
+    bool wasBlocked = false;
 
     public bool CanAccept(Direction travelDirection)
     {
@@ -22,6 +23,7 @@ public class Furnace : MonoBehaviour
         Destroy(ore.gameObject);
         busy = true;
         timer = 0f;
+        wasBlocked = false;
         return true;
     }
 
@@ -30,10 +32,18 @@ public class Furnace : MonoBehaviour
         if (busy == false) return;
 
         timer += Time.deltaTime;
-        if (timer <= data.craftTime) return;
 
         Belt next = buildManager.DownstreamBelt(transform.position, direction);
-        if (next == null || next.CanAccept(direction) == false) return;
+        bool blocked = (next == null || next.CanAccept(direction) == false);
+
+        if (blocked != wasBlocked)
+        {
+            Debug.Log(blocked ? $"[{data.displayName}] 出口堵塞" : $"[{data.displayName}] 出口恢复");
+            wasBlocked = blocked;
+        }
+
+        if (timer <= data.craftTime) return;
+        if (blocked) return;
 
         GameObject product = Instantiate(productPrefab, Vector3.zero, Quaternion.identity);
         next.AddOre(product.GetComponent<Ore>(), direction);
