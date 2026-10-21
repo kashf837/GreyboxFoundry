@@ -3,12 +3,10 @@ using UnityEngine;
 
 public enum Direction { North, East, South, West }
 
-public class Belt : MonoBehaviour, IReceiver
+public class Belt : Building, IReceiver
 {
-    public Direction direction = Direction.North;
     [SerializeField] float speed = 1f; 
     List<Ore> ores = new List<Ore>();
-    public BuildManager buildManager;
     const float Spacing = 0.5f;
     const float Lift = 0.25f; 
 

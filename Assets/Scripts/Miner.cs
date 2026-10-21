@@ -1,10 +1,7 @@
 using UnityEngine;
 
-public class Miner : MonoBehaviour
+public class Miner : Building
 {
-    public Direction direction = Direction.North;
-    public BuildManager buildManager;
-
     float timer = 0.0f;
     [SerializeField] GameObject orePrefab;
     bool wasBlocked = false;

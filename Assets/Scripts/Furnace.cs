@@ -1,11 +1,7 @@
 using UnityEngine;
 
-public class Furnace : MonoBehaviour, IReceiver
+public class Furnace : Building, IReceiver
 {
-    public MachineData data;
-    public Direction direction = Direction.North;
-    public BuildManager buildManager;
-
     [SerializeField] GameObject productPrefab;
 
     bool busy = false;

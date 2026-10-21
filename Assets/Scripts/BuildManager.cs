@@ -40,24 +40,9 @@ public class BuildManager : MonoBehaviour
 
         building.name = $"{currentType} ({cell.x},{cell.y})";
 
-        if (currentType == BuildingType.Belt)
-        {
-            Belt belt = building.GetComponent<Belt>();
-            belt.direction = currentDirection;
-            belt.buildManager = this;
-        }
-        else if (currentType == BuildingType.Miner)
-        {
-            Miner miner = building.GetComponent<Miner>();
-            miner.direction = currentDirection;
-            miner.buildManager = this;
-        }
-        else if (currentType == BuildingType.Furnace)
-        {
-            Furnace furnace = building.GetComponent<Furnace>();
-            furnace.direction = currentDirection;
-            furnace.buildManager = this;
-        }
+        Building b = building.GetComponent<Building>();
+        b.direction = currentDirection;
+        b.buildManager = this;
 
         building.transform.rotation = Quaternion.Euler(0, (int)currentDirection * 90f, 0);
 
