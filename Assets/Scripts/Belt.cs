@@ -81,8 +81,17 @@ public class Belt : MonoBehaviour
     {
         if (ores.Count == 0) return;
         if (ores[0].progress < 1f) return;
-        if (next == null) return;
-        if (!next.AddOre(ores[0], direction)) return;      // 递方向，不递坐标
-        ores.RemoveAt(0);
+
+        if (next != null)
+        {
+            if (next.AddOre(ores[0], direction)) ores.RemoveAt(0);
+            return;
+        }
+
+        GameObject front = buildManager.BuildingInFront(transform.position, direction);
+        if (front == null) return;
+
+        Chest chest = front.GetComponent<Chest>();
+        if (chest != null && chest.AddOre(ores[0], direction)) ores.RemoveAt(0);
     }
 }
