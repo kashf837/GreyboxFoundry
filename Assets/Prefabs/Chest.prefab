@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6160612125386190058}
   - component: {fileID: 1066737792013026421}
+  - component: {fileID: 5370187326007353541}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -45,7 +46,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfdb3f75dc9ffd4883d6130e01f3541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 50
+  data: {fileID: 0}
+  direction: 0
+  buildManager: {fileID: 0}
+--- !u!114 &5370187326007353541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052537039936288990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e9126c8120b6f4c99b4461235600b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.25
 --- !u!1 &7525620936075119750
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8882270977034598099}
   - component: {fileID: 5326224046591220513}
+  - component: {fileID: 9035886856317226491}
   m_Layer: 0
   m_Name: Belt
   m_TagString: Untagged
@@ -47,7 +48,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f56bc928e48a849bb350655020198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   direction: 0
+  buildManager: {fileID: 0}
+--- !u!114 &9035886856317226491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816822947729527032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e9126c8120b6f4c99b4461235600b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.25
 --- !u!1 &1448087850515460049
 GameObject:
   m_ObjectHideFlags: 0
