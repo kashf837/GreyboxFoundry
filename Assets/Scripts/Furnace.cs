@@ -4,12 +4,9 @@ public class Furnace : Building, IReceiver
 {
     bool busy = false;
     float timer = 0f;
-    bool wasBlocked = false;
+    bool blocked = false;          // 上一次"想交货"时的结论，存下来给灯看
 
-    public bool CanAccept(Direction travelDirection)
-    {
-        return !busy;
-    }
+    public bool CanAccept(Direction travelDirection) { return !busy; }
 
     public bool AddOre(Ore ore, Direction travelDirection)
     {
@@ -17,15 +14,16 @@ public class Furnace : Building, IReceiver
         Destroy(ore.gameObject);
         busy = true;
         timer = 0f;
-        wasBlocked = false;
+        blocked = false;           // 新一轮加工开始，先当我没堵
         return true;
     }
 
-    public override bool IsBlocked()
+    public override bool IsBlocked() { return blocked; }
+
+    bool CanDeliver()
     {
-        if (busy == false) return false;
         Belt next = buildManager.DownstreamBelt(transform.position, direction);
-        return next == null || next.CanAccept(direction) == false;
+        return next != null && next.CanAccept(direction);
     }
 
     void Update()
@@ -33,19 +31,18 @@ public class Furnace : Building, IReceiver
         if (busy == false) return;
 
         timer += Time.deltaTime;
+        if (timer <= data.craftTime) return;      // ← 还在加工，谈不上堵
 
-        Belt next = buildManager.DownstreamBelt(transform.position, direction);
-        bool blocked = IsBlocked();
-
-        if (blocked != wasBlocked)
+        bool nowBlocked = !CanDeliver();
+        if (nowBlocked != blocked)
         {
+            blocked = nowBlocked;
             Debug.Log(blocked ? $"[{data.displayName}] 出口堵塞" : $"[{data.displayName}] 出口恢复");
-            wasBlocked = blocked;
         }
 
-        if (timer <= data.craftTime) return;
         if (blocked) return;
 
+        Belt next = buildManager.DownstreamBelt(transform.position, direction);
         GameObject product = Instantiate(data.outputPrefab, Vector3.zero, Quaternion.identity);
         next.AddOre(product.GetComponent<Ore>(), direction);
 
