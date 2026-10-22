@@ -10,6 +10,9 @@ public class BuildManager : MonoBehaviour
     [SerializeField] GridManager grid;
     BuildingType currentType = BuildingType.Miner;
     Direction currentDirection = Direction.North;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip buildClip;
+    [SerializeField] AudioClip demolishClip;
 
     public bool IsOccupied(Vector2Int cell)
     {
@@ -38,6 +41,8 @@ public class BuildManager : MonoBehaviour
         building.transform.rotation = Quaternion.Euler(0, (int)currentDirection * 90f, 0);
 
         occupied.Add(cell, building);
+
+        audioSource.PlayOneShot(buildClip);
         return true;
     }
 
@@ -49,6 +54,8 @@ public class BuildManager : MonoBehaviour
         }
         Destroy(occupied[cell]);
         occupied.Remove(cell);
+
+        audioSource.PlayOneShot(demolishClip);
         return true;
     }
 
