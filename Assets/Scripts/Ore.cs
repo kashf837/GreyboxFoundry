@@ -19,4 +19,16 @@ public class Ore : MonoBehaviour
         blocked = value;
         rend.sharedMaterial = value ? blockedMat : movingMat;
     }
+
+    void OnEnable()
+    {
+        if (itemType == ItemType.Ore) ItemStats.AddOre(1);
+        else                          ItemStats.AddGear(1);
+    }
+
+    void OnDestroy()
+    {
+        if (itemType == ItemType.Ore) ItemStats.AddOre(-1);
+        else                          ItemStats.AddGear(-1);
+    }
 }
