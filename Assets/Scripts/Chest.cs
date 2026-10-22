@@ -11,10 +11,13 @@ public class Chest : Building, IReceiver
 
     public bool AddOre(Ore ore, Direction travelDirection)
     {
-        if (!CanAccept(travelDirection)) return false;
+        if (CanAccept(travelDirection) == false) return false;
         count++;
         Destroy(ore.gameObject);
-        Debug.Log($"[{name}] {count}/{data.capacity}");
+
+        if (count == data.capacity)
+            Debug.Log($"[{name}] 满了（{count}/{data.capacity}）");
+
         return true;
     }
 }
