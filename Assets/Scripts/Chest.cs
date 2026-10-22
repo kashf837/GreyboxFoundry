@@ -9,6 +9,11 @@ public class Chest : Building, IReceiver
         return count < data.capacity;
     }
 
+    public override bool IsBlocked()
+    {
+        return count >= data.capacity;
+    }
+
     public bool AddOre(Ore ore, Direction travelDirection)
     {
         if (CanAccept(travelDirection) == false) return false;

@@ -21,6 +21,13 @@ public class Furnace : Building, IReceiver
         return true;
     }
 
+    public override bool IsBlocked()
+    {
+        if (busy == false) return false;
+        Belt next = buildManager.DownstreamBelt(transform.position, direction);
+        return next == null || next.CanAccept(direction) == false;
+    }
+
     void Update()
     {
         if (busy == false) return;
@@ -28,7 +35,7 @@ public class Furnace : Building, IReceiver
         timer += Time.deltaTime;
 
         Belt next = buildManager.DownstreamBelt(transform.position, direction);
-        bool blocked = (next == null || next.CanAccept(direction) == false);
+        bool blocked = IsBlocked();
 
         if (blocked != wasBlocked)
         {

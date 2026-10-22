@@ -4,6 +4,11 @@ public class Miner : Building
 {
     float timer = 0.0f;
     bool wasBlocked = false;
+    public override bool IsBlocked()
+    {
+        Belt belt = buildManager.DownstreamBelt(transform.position, direction);
+        return belt == null || belt.CanAccept(direction) == false;
+    }
 
     void Update()
     {
@@ -12,7 +17,7 @@ public class Miner : Building
         timer = 0.0f;
 
         Belt belt = buildManager.DownstreamBelt(transform.position, direction);
-        bool blocked = (belt == null || !belt.CanAccept(direction));
+        bool blocked = IsBlocked();
 
         if (blocked != wasBlocked)
         {
