@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BuildingType { Miner, Belt, Chest, Furnace }
+public enum BuildingType { Miner, Belt, Chest, Furnace, Turret }
 
 public class BuildManager : MonoBehaviour
 {
