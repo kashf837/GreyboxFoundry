@@ -59,6 +59,11 @@ public class BuildManager : MonoBehaviour
         return machines[(int)currentType].previewScale;
     }
 
+    public bool ShowArrow()      // 当前类型的预览要不要显示方向箭头
+    {
+        return machines[(int)currentType].showArrow;
+    }
+
     public Direction CurrentDirection() { return currentDirection; }
 
     public void RotateDirection()

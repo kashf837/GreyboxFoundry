@@ -40,7 +40,7 @@ public class MousePointer : MonoBehaviour
             preview.rotation = Quaternion.Euler(0, (int)buildManager.CurrentDirection() * 90f, 0);
             previewRenderer.sharedMaterial = buildManager.CanBuild(cell) ? freeMat : blockedMat;
 
-            previewArrow.gameObject.SetActive(buildManager.CurrentType() != BuildingType.Chest);
+            previewArrow.gameObject.SetActive(buildManager.ShowArrow());
             previewArrow.position = new Vector3(worldPos.x, scale.y, worldPos.z);
             previewArrow.rotation = preview.rotation;
 

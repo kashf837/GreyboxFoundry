@@ -15,6 +15,7 @@ MonoBehaviour:
   displayName: "\u70AE\u5854"
   prefab: {fileID: 9050171087882030254, guid: e5aa6049412f5eb4b9872f39a8d02eeb, type: 3}
   previewScale: {x: 0.8, y: 0.5, z: 0.8}
+  showArrow: 0
   inputType: 0
   outputType: 0
   craftTime: 2
